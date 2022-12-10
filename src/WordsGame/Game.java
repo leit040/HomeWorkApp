@@ -11,31 +11,38 @@ public class Game {
             "pear", "pepper", "pineapple", "pumpkin", "potato"};
 
 
-    private String userWord, word;
+    private final StringBuilder userWord;
+    private StringBuilder word;
 
-    private final Scanner sc = new Scanner(System.in);
+    private final Scanner sc;
 
+    public Game(){
+        this.userWord = new StringBuilder();
+        this.word = new StringBuilder();
+        this.sc  = new Scanner(System.in);
+        this.init();
+    }
     public void init() {
-        word = this.words[new Random().nextInt(0, 24)];
+        word = new StringBuilder(this.words[new Random().nextInt(0, 24)]);
     //    System.out.println("Cheating: "+word);
     }
 
 
     private void userInput() {
         System.out.print("Please, enter your word: ");
-        userWord = sc.next();
+        userWord.replace(0,userWord.length(),sc.next());
 
     }
 
     private boolean check() {
-        return userWord.equals(word);
+        return userWord.toString().equals(word.toString());
     }
 
     private void printResult() {
         int userWordLen = Math.min(userWord.length(), word.length());
         char[] resultArray = {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'};
-        char[] userWordArray = userWord.toCharArray();
-        char[] wordArray = word.toCharArray();
+        char[] userWordArray = userWord.toString().toCharArray();
+        char[] wordArray = word.toString().toCharArray();
         for (int i = 0; i < userWordLen; i++) {
             if (userWordArray[i] == wordArray[i]) {
                 resultArray[i] = wordArray[i];
