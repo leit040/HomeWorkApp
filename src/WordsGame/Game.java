@@ -5,33 +5,52 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
-
-    private final String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry",
-            "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", " pea", "peanut",
-            "pear", "pepper", "pineapple", "pumpkin", "potato"};
-
-
-    private final StringBuilder userWord;
-    private StringBuilder word;
+    private final String[] words = {
+            "apple",
+            "orange",
+            "lemon",
+            "banana",
+            "apricot",
+            "avocado",
+            "broccoli",
+            "carrot",
+            "cherry",
+            "garlic",
+            "grape",
+            "melon",
+            "leak",
+            "kiwi",
+            "mango",
+            "mushroom",
+            "nut",
+            "olive",
+            "pea",
+            "peanut",
+            "pear",
+            "pepper",
+            "pineapple",
+            "pumpkin",
+            "potato"
+    };
+    private final StringBuilder userWord, word;
 
     private final Scanner sc;
 
-    public Game(){
+    public Game() {
         this.userWord = new StringBuilder();
         this.word = new StringBuilder();
-        this.sc  = new Scanner(System.in);
+        this.sc = new Scanner(System.in);
         this.init();
     }
-    public void init() {
-        word = new StringBuilder(this.words[new Random().nextInt(0, 24)]);
-    //    System.out.println("Cheating: "+word);
-    }
 
+    public void init() {
+        word.replace(0, word.length(), this.words[new Random().nextInt(0, 24)]);
+        //    System.out.println("Cheating: "+word);
+    }
 
     private void userInput() {
         System.out.print("Please, enter your word: ");
-        userWord.replace(0,userWord.length(),sc.next());
-
+        userWord.replace(0, userWord.length(), sc.next());
     }
 
     private boolean check() {
@@ -40,7 +59,7 @@ public class Game {
 
     private void printResult() {
         int userWordLen = Math.min(userWord.length(), word.length());
-        char[] resultArray = {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'};
+        char[] resultArray = {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'};
         char[] userWordArray = userWord.toString().toCharArray();
         char[] wordArray = word.toString().toCharArray();
         for (int i = 0; i < userWordLen; i++) {
@@ -50,9 +69,7 @@ public class Game {
             }
             resultArray[i] = '#';
         }
-
         System.out.println(Arrays.toString(resultArray));
-
     }
 
     public void play() {
@@ -62,8 +79,6 @@ public class Game {
             userInput();
             printResult();
         } while (!check());
-        System.out.println("You are win!!! word is "+word);
+        System.out.println("You are win!!! word is " + word);
     }
-
-
 }
